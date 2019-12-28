@@ -38,6 +38,7 @@ public class CargaNiveles {
         {
             case 'J':
                     Enti=new Jugador(3,X,Y,Ataque,Tabla);
+                    Tabla.CrearJugador(Enti);
                     break;
             case 'X': 
                     Enti=new Pared(1,X,Y,Ataque,Tabla);
@@ -52,13 +53,16 @@ public class CargaNiveles {
             case 'E':
                   Enti = new Enemigo(1, X, Y, Ataque, Tabla);
                 break;
+            default:
+                    Enti= null;
+                break;
         }
         
         
         
         return Enti;
     }
-    private Entidad[][] Carga(String Path,Tablero Tabla) {
+    public Entidad[][] Carga(String Path,Tablero Tabla) {
         Entidad[][] NuevoNivel = new Entidad[12][12];
         File archivo = new File(Path);
         FileReader fr = null;
@@ -68,15 +72,15 @@ public class CargaNiveles {
             String Linea=br.readLine();
             int Y=0;
             while(Linea!=null){
-                Linea=br.readLine();
+                
                 int Longitud=Linea.length();
                 for(int X=0;X<Longitud;X++){
-                   char Caracter=Linea.charAt(1);
+                   char Caracter=Linea.charAt(X);
                    NuevoNivel[X][Y]=GenerarEntidades(Caracter,X,Y,Tabla);
                 }
-            
                 if(Y>11)
                     break;
+                Linea=br.readLine();
                 Y++;
             }
         } catch (Exception ex) {

@@ -17,7 +17,7 @@ public class Bomba extends Entidad{
     public Bomba(int Vida, int X, int Y, int Ataque, Tablero Tabla) {
         super(Vida, X, Y, Ataque, Tabla);
     }
-
+    
   
 
     @Override

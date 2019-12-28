@@ -1,5 +1,6 @@
 package Elementos;
 
+import Carga.CargaNiveles;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -14,42 +15,58 @@ import javax.swing.JTextArea;
  *
  * @author 50241
  */
+public class Tablero extends Thread {
 
-public class Tablero extends Thread{
-    private int TiempoPantalla,TiempoEnemigo,TiempoBomba;
+    private int TiempoPantalla, TiempoEnemigo, TiempoBomba;
     private Entidad Jugador;
     private Entidad[][] Tabla;
-    JTextArea[] Texto;
+    JTextArea Texto;
     JFrame Contenedor;
-    public Tablero(JTextArea[] Grafica,JFrame Contenedor) {
-        Texto=Grafica;
-        Tabla = new Entidad[12][12];
-        
-        Tabla[6][6]= new Enemigo(1,6,6,1,this);
-        Tabla[6][6].start();
-        this.Contenedor=Contenedor;
-        Tabla[2][2]= new Jugador(1,2,2,1,this);
-        Tabla[2][2].start();
-        Jugador=Tabla[2][2];
+
+    public void CrearJugador(Entidad Jugador) {
+        this.Jugador = Jugador;
     }
-    public void Listener(java.awt.event.KeyEvent evt){
+
+    public Tablero(JTextArea Grafica, JFrame Contenedor) {
+        Texto = Grafica;
+        Tabla = new Entidad[12][12];
+        this.Contenedor = Contenedor;
+        CargaNiveles Carga= new CargaNiveles(1);
+        this.Tabla= Carga.Carga("C:\\Users\\Norki\\Desktop\\Bombero\\Niveles\\Nivel1.txt", this);
+        //Tabla[6][6] = new Enemigo(1, 6, 6, 1, this);
+        //Tabla[2][2] = new Jugador(1, 2, 2, 1, this);
+
+        //Jugador = Tabla[2][2];
+    }
+
+    public void Iniciar() {
+        for (int j = 0; j < 12; j++) {
+            for (int i = 0; i < 12; i++) {
+                if(Tabla[i][j]!=null)
+                Tabla[i][j].start();
+            }
+
+        }
+    }
+
+    public void Listener(java.awt.event.KeyEvent evt) {
         ((Jugador) Jugador).Evento(evt);
     }
+
     @Override
     public void run() {
-        while(true){
+        while (true) {
             try {
                 Contenedor.requestFocus();
                 TableroTexto(Texto);
                 Thread.sleep(200);
-                System.gc();
-                
 
             } catch (InterruptedException ex) {
                 Logger.getLogger(Tablero.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
+
     public Tablero(String Path) {
         CargarInfo(Path);
     }
@@ -91,75 +108,89 @@ public class Tablero extends Thread{
         char Simbolo;
         switch (Actual.Tipo()) {
             case 0:
-                Simbolo='p';
+                Simbolo = 'B';
                 break;
             case 1:
-                Simbolo='e';
+                Simbolo = 'E';
                 break;
             case 2:
-                Simbolo='b';
+                Simbolo = 'N';
+                break;
+            case 3:
+                Simbolo = 'J';
+                break;
+            case 4:
+                Simbolo = 'L';
                 break;
             default:
-                Simbolo='j';
+                Simbolo = ' ';
                 break;
         }
-      
-        
+
         System.out.print(Simbolo);
     }
+
     private char DibujarTexto(Entidad Actual) {
         char Simbolo;
         switch (Actual.Tipo()) {
             case 0:
-                Simbolo='p';
+                Simbolo = 'B';
                 break;
             case 1:
-                Simbolo='e';
+                Simbolo = 'E';
                 break;
             case 2:
-                Simbolo='b';
+                Simbolo = 'N';
+                break;
+            case 3:
+                Simbolo = 'J';
+                break;
+            case 4:
+                Simbolo = 'L';
                 break;
             default:
-                Simbolo='j';
+                Simbolo = ' ';
                 break;
         }
-      
+
         return Simbolo;
     }
 
-    public void TableroTexto(JTextArea[] Grafica){
-        Grafica[0].setText("");
-        String Texto="";
+    public void TableroTexto(JTextArea Grafica) {
+        Grafica.setText(null);
+        String Texto = "";
         for (int j = 0; j < 12; j++) {
-            Texto=Texto+("\n");
+            Texto = Texto + ("\n");
             for (int i = 0; i < 12; i++) {
-                Texto=Texto+" ";
+                Texto = Texto + "";
                 Entidad Actual = Tabla[i][j];
                 if (Actual != null) {
-                    Texto=Texto+DibujarTexto(Actual);
-                }else{
-                    Texto=Texto+" ";
+                    Texto = Texto + DibujarTexto(Actual);
+                } else {
+                    Texto = Texto + "-";
                 }
             }
         }
-        Grafica[0].setText(Texto);
+        
+        Grafica.setText(Texto);
     }
+
     public void DibujarTablero() {
-            System.out.println("");
-            System.out.println("");
-            System.out.println("");
-            System.out.println("");
-            System.out.println("");
-            System.out.println("");
-            System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
         for (int j = 0; j < 12; j++) {
             System.out.println("");
-            
+
             for (int i = 0; i < 12; i++) {
                 Entidad Actual = Tabla[i][j];
                 if (Actual != null) {
                     Dibujar(i, Actual);
-                }else{
+                } else {
                     System.out.print("x");
                 }
             }

@@ -1525,9 +1525,7 @@ public class Interfaz extends javax.swing.JFrame {
     Juego Actual=null;
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Actual = new Juego();
-        JTextArea[] Puntero= new JTextArea[1];
-        Puntero[0]=this.jTextArea1;
-        Actual.IniciarJuego(Puntero,this);
+        Actual.IniciarJuego(this.jTextArea1,this);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed

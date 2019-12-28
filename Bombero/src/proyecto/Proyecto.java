@@ -21,11 +21,11 @@ public class Proyecto {
     public static void main(String[] args) {
         //Tablero T = new Tablero();
       //  T.start();
-      //Interfaz I = new Interfaz();
-      //I.setVisible(true);
+      Interfaz I = new Interfaz();
+      I.setVisible(true);
       
-      CargaNiveles C =new CargaNiveles(1);
-      
+      //CargaNiveles C =new CargaNiveles(1);
+     // "C:\\Users\\50241\\Desktop\\Bombero\\Niveles\\Nivel1.txt"
     }
     
 }

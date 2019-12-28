@@ -12,7 +12,7 @@ package Elementos;
  */
 public abstract class Entidad extends Thread{
     protected int VidaActual,Ataque;  
-    protected int X,Y;
+    protected int X,Y,Rango;
     protected Tablero Tabla;
     public Entidad(int Vida,int X,int Y,int Ataque,Tablero Tabla){
         this.X=X;
@@ -20,6 +20,14 @@ public abstract class Entidad extends Thread{
         this.Ataque=Ataque;
         this.VidaActual=Vida;
         this.Tabla=Tabla;
+    }
+    public Entidad(int Vida,int X,int Y,int Ataque,Tablero Tabla,int Rango){
+        this.X=X;
+        this.Y=Y;
+        this.Ataque=Ataque;
+        this.VidaActual=Vida;
+        this.Tabla=Tabla;
+        this.Rango=Rango;
     }
     @Override
     public void run() {

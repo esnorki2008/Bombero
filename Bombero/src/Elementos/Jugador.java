@@ -58,7 +58,6 @@ public class Jugador extends Entidad {
     }
     private int EjeX,EjeY=0;
     public void Evento(java.awt.event.KeyEvent evt){
-        System.out.println(evt.getKeyCode());
         int Evento=evt.getKeyCode();
         if(Evento==37)
         {
@@ -76,6 +75,10 @@ public class Jugador extends Entidad {
         {
             //Abajo
             EjeY=1;
+        }else if(Evento==32)
+        {
+            //Bomba
+            System.out.println(X+"--"+Y);
         }
     }
     @Override
