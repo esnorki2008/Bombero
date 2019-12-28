@@ -10,12 +10,17 @@ package Elementos;
  * @author 50241
  */
 public class Pared extends Entidad{
-
+    boolean Bonus;
     public Pared(int Vida, int X, int Y, int Ataque, Tablero Tabla) {
         super(Vida, X, Y, Ataque, Tabla);
+        Bonus=false;
     }
-
-   
+    public void ActivarBonus(){
+        Bonus=true;
+    }
+    public boolean EsBonus(){
+        return Bonus;
+    }
     @Override
     public void Mover() {
        //No Hace Nada

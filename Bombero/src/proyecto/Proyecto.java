@@ -24,7 +24,7 @@ public class Proyecto {
       //Interfaz I = new Interfaz();
       //I.setVisible(true);
       
-      CargaNiveles C =new CargaNiveles("C:\\Users\\50241\\Desktop\\Bombero\\Niveles\\Nivel1.txt",1);
+      CargaNiveles C =new CargaNiveles(1);
       
     }
     

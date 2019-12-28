@@ -1,6 +1,11 @@
 package Carga;
 
+import Elementos.Enemigo;
 import Elementos.Entidad;
+import Elementos.Jugador;
+import Elementos.Llave;
+import Elementos.Pared;
+import Elementos.Tablero;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,19 +25,40 @@ import java.util.logging.Logger;
  */
 public class CargaNiveles {
 
-    private Entidad[][] Nivel;
     private int Dificultad;
 
-    public CargaNiveles(String Path, int Dificultad) {
-        Nivel = Carga(Path);
+    public CargaNiveles(int Dificultad) {
         this.Dificultad = Dificultad;
     }
-    private Entidad GenerarEntidades(String Caracter){
-        String Salida="";
-        Entidad Nulo= new Entidad();
-        return Salida;
+    private Entidad GenerarEntidades(char Caracter,int X,int Y,Tablero Tabla){
+        int Ataque=0;
+        
+        Entidad Enti=null;
+        switch(Caracter)
+        {
+            case 'J':
+                    Enti=new Jugador(3,X,Y,Ataque,Tabla);
+                    break;
+            case 'X': 
+                    Enti=new Pared(1,X,Y,Ataque,Tabla);
+                    break;
+            case 'L':
+                    Enti=new Llave(1,X,Y,Ataque,Tabla);
+                    break;
+            case 'B':
+                    Enti=new Pared(1,X,Y,Ataque,Tabla);
+                    ((Pared)Enti).ActivarBonus();
+                    break;
+            case 'E':
+                  Enti = new Enemigo(1, X, Y, Ataque, Tabla);
+                break;
+        }
+        
+        
+        
+        return Enti;
     }
-    private Entidad[][] Carga(String Path) {
+    private Entidad[][] Carga(String Path,Tablero Tabla) {
         Entidad[][] NuevoNivel = new Entidad[12][12];
         File archivo = new File(Path);
         FileReader fr = null;
@@ -42,14 +68,21 @@ public class CargaNiveles {
             String Linea=br.readLine();
             int Y=0;
             while(Linea!=null){
-                int X=0;
-                System.out.println(Linea);
                 Linea=br.readLine();
+                int Longitud=Linea.length();
+                for(int X=0;X<Longitud;X++){
+                   char Caracter=Linea.charAt(1);
+                   NuevoNivel[X][Y]=GenerarEntidades(Caracter,X,Y,Tabla);
+                }
+            
+                if(Y>11)
+                    break;
+                Y++;
             }
         } catch (Exception ex) {
             Logger.getLogger(CargaNiveles.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        return Nivel;
+        return NuevoNivel;
     }
 }
