@@ -6,6 +6,7 @@
 package Elementos;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
 /**
@@ -13,12 +14,15 @@ import javax.swing.JTextArea;
  * @author 50241
  */
 public class Juego {
-    Tablero T;
-    public void IniciarJuego(JTextArea Visualizar,JFrame Contenedor){
-        T = new Tablero(Visualizar,Contenedor);
+    private Tablero T;
+    public void IniciarJuego(JTextArea Visualizar,JFrame Contenedor,JLabel[][] Matriz){
+        T = new Tablero(Visualizar,Contenedor,Matriz);
         T.Iniciar();
         T.start();
         
+    }
+    public Entidad[][] VerTablero(){
+        return T.RetornarTabla();
     }
     public void Listener(java.awt.event.KeyEvent evt){
         T.Listener(evt);
