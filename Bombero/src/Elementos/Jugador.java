@@ -13,8 +13,10 @@ import java.awt.event.KeyListener;
  * @author 50241
  */
 public class Jugador extends Entidad {
+    int BombasEspeciales;
     public Jugador(int Vida, int X, int Y, int Ataque, Tablero Tabla) {
         super(Vida, X, Y, Ataque, Tabla);
+        this.BombasEspeciales=0;
     }
     
     
@@ -38,12 +40,12 @@ public class Jugador extends Entidad {
         //Casilla Vacia
         //Mover en X
         if(Tabla.CasillaVacia(EjeX, Y)){
-            Tabla.MoverANuevaCasilla(X, Y, EjeX, Y);
+            if(Tabla.MoverANuevaCasilla(this, EjeX, Y))
             X=EjeX;
         }
         //Mover en Y
         if(Tabla.CasillaVacia(X, EjeY)){
-            Tabla.MoverANuevaCasilla(X, Y, X, EjeY);
+            if(Tabla.MoverANuevaCasilla(this, X, EjeY))
             Y=EjeY;
         }
         //Hay Objeto  Enemigo
@@ -78,9 +80,20 @@ public class Jugador extends Entidad {
         }else if(Evento==32)
         {
             //Bomba
-            System.out.println(X+"--"+Y);
+            int Rango=1;
+            boolean Especial=false;
+            if(BombasEspeciales>0){
+                Rango=2;
+                Especial=true;
+                BombasEspeciales--;
+            }
+            if(!this.Tabla.PonerBomba(new Bomba(1,X,Y,this.Ataque,Tabla,Rango), X, Y)){
+                if(Especial)
+                    BombasEspeciales++;
+            }
         }
     }
+    
     @Override
     public void Esperar() {
         try {

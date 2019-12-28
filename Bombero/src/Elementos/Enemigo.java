@@ -31,12 +31,12 @@ public class Enemigo extends Entidad {
         //Casilla Vacia
         //Mover en X
         if(Tabla.CasillaVacia(EjeX, Y)){
-            Tabla.MoverANuevaCasilla(X, Y, EjeX, Y);
+            if(Tabla.MoverANuevaCasilla(this, EjeX, Y))
             X=EjeX;
         }
         //Mover en Y
         if(Tabla.CasillaVacia(X, EjeY)){
-            Tabla.MoverANuevaCasilla(X, Y, X, EjeY);
+            if(Tabla.MoverANuevaCasilla(this, X, EjeY))
             Y=EjeY;
         }
         //Hay Objeto  Jugador

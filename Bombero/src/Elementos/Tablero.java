@@ -5,7 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
-
+import Elementos.Bomba;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -75,10 +75,19 @@ public class Tablero extends Thread {
         if (Tabla[X][Y] == null) {
             return;
         }
-
+        System.out.println("V       "+Tabla[X][Y].Tipo()+"      "+Tabla[X][Y].VidaActual);
         Tabla[X][Y].RecibirDaño(Daño);
         if (Tabla[X][Y].VidaActual <= 0) {
-            Tabla[X][Y] = null;
+
+            if (Tabla[X][Y].Tipo() != 3) {
+                if (X == this.Jugador.X && Y == this.Jugador.Y) {
+                    Tabla[X][Y] = this.Jugador;
+                }else{
+                Tabla[X][Y] = null;
+                }
+            } else {
+                System.out.println("Menu de Juego Acabado   "+this.Jugador.VidaActual);
+            }
         }
 
     }
@@ -99,11 +108,31 @@ public class Tablero extends Thread {
         return this.Tabla[X][Y].EsJugador();
     }
 
-    public void MoverANuevaCasilla(int XVieja, int YVieja, int XNueva, int YNueva) {
-        Tabla[XNueva][YNueva] = Tabla[XVieja][YVieja];
-        Tabla[XVieja][YVieja] = null;
+    public boolean MoverANuevaCasilla(Entidad Enti, int XNueva, int YNueva) {
+        int XVieja=Enti.X;
+        int YVieja=Enti.Y;
+        if(Tabla[XNueva][YNueva]!=null){
+            return false;
+        }
+        if(Enti.Tipo()==3 && Tabla[XVieja][YVieja].Tipo()!=3){
+            Tabla[XNueva][YNueva] =Enti;
+        }else{
+            Tabla[XNueva][YNueva] = Tabla[XVieja][YVieja];
+            Tabla[XVieja][YVieja] = null;
+        }
+        
+        
+        return true;
     }
-
+    public boolean PonerBomba(Bomba Nueva,int XNueva,int YNueva){
+        Entidad Actual=Tabla[XNueva][YNueva];
+        if(Actual.Tipo()==2){
+            return false;
+        }
+        Tabla[XNueva][YNueva]=Nueva;
+        Tabla[XNueva][YNueva].start();
+        return true;
+    }
     private void Dibujar(int i, Entidad Actual) {
         char Simbolo;
         switch (Actual.Tipo()) {
