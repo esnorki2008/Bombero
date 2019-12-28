@@ -5,6 +5,7 @@
  */
 package proyecto;
 
+import Carga.CargaNiveles;
 import Elementos.Tablero;
 import GUI.Interfaz;
 
@@ -20,9 +21,11 @@ public class Proyecto {
     public static void main(String[] args) {
         //Tablero T = new Tablero();
       //  T.start();
-      Interfaz I = new Interfaz();
-      I.setVisible(true);
-// TODO code application logic here
+      //Interfaz I = new Interfaz();
+      //I.setVisible(true);
+      
+      CargaNiveles C =new CargaNiveles("C:\\Users\\50241\\Desktop\\Bombero\\Niveles\\Nivel1.txt",1);
+      
     }
     
 }
