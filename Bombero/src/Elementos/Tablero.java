@@ -6,6 +6,8 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import Elementos.Bomba;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 /*
@@ -18,13 +20,14 @@ import javax.swing.JLabel;
  * @author 50241
  */
 public class Tablero extends Thread {
-
+    private int Final;
     private boolean TableroActivo;
-    private int TiempoPantalla, TiempoEnemigo, TiempoBomba;
-    private Entidad Jugador;
+    private int Puntos;
+    private Entidad Jugador,Llave;
     private Entidad[][] Tabla;
     JTextArea Texto;
     JFrame Contenedor;
+    JLabel L1,L2;
     private JLabel[][] Matriz;
 
     public Entidad[][] RetornarTabla() {
@@ -34,9 +37,34 @@ public class Tablero extends Thread {
     public void CrearJugador(Entidad Jugador) {
         this.Jugador = Jugador;
     }
-
+    public void CrearLlave(Entidad Llave) {
+        this.Llave = Llave;
+    }
+    private int Punteo(int Tipo){
+        switch(Tipo){
+            case 0 :
+                return 1;
+            case 1 :
+                return 10;
+            default :
+                return 0;
+        }
+    }
     public void CargarAMatriz() {
-
+        int Vid=Jugador.VidaActual();
+        if(Vid<0)
+            Vid=0;
+        this.L1.setText(Vid+"");
+       
+        this.L2.setText(this.Puntos+"");
+        if(Llave!=null){
+            int i=Llave.X;
+            int j=Llave.Y;
+            Tabla[i][j] =Llave;
+            
+            if(i==this.Jugador.X && j == this.Jugador.Y)
+                this.TableroActivo=false;
+        }
         
         for (int j = 0; j < 12; j++) {
 
@@ -44,10 +72,16 @@ public class Tablero extends Thread {
 
                 if (Tabla[i][j] == null) {
                     Matriz[i][j].setText("");
+                   // this.Matriz[i][j].setIcon(null);
                 } else {
                  
                     
                     if (Tabla[i][j].VidaActual <= 0) {
+                       
+                        
+                        this.Puntos=this.Puntos+this.Punteo(Tabla[i][j].Tipo());
+                        
+                        
                         if (Tabla[i][j].Tipo() != 3) {
                             Tabla[i][j].Limpiar();
                             Tabla[i][j] = null;
@@ -61,22 +95,50 @@ public class Tablero extends Thread {
                         }
                     } else {
 
-                       // Matriz[i][j].setText(this.DibujarTexto(Tabla[i][j]) + "");
-                      
-                        Matriz[i][j].setText((Tabla[i][j].Tipo()) + "");
+                        Matriz[i][j].setText(this.DibujarTexto(Tabla[i][j]) + "");
+                       //       ImageIcon imageIcon = ImageIconTipo(Tabla[i][j].Tipo());
+                        //      this.Matriz[i][j].setText("");
+                        //      this.Matriz[i][j].setIcon(imageIcon);
+                       // Matriz[i][j].setText((Tabla[i][j].Tipo()) + "");
                     }
                 }
             }
         }
     }
-
+    public ImageIcon ImageIconTipo(int Tipo){
+        ImageIcon imageIcon =null;
+        switch(Tipo){
+            case 0:
+                imageIcon =new ImageIcon("src\\Imagenes\\0.png");
+                break;
+            case 1:
+                imageIcon =new ImageIcon("src\\Imagenes\\1.png");
+                break;
+            case 2:
+                imageIcon =new ImageIcon("src\\Imagenes\\2.png");
+                break;
+            case 3:
+                imageIcon =new ImageIcon("src\\Imagenes\\3.png");
+                break;
+            case 4:
+                imageIcon =new ImageIcon("src\\Imagenes\\4.png");
+                break;
+            case 5:
+                imageIcon =new ImageIcon("src\\Imagenes\\5.png");
+                break;
+            default:
+                imageIcon =new ImageIcon("src\\Imagenes\\7.jpg");
+            break;
+        }
+        return imageIcon;
+    }
     public void ApagarTablero(){
         this.TableroActivo=false;
     }
     public boolean EstadoTablero(){
         return this.TableroActivo;
     }
-    public Tablero(JTextArea Grafica, JFrame Contenedor, JLabel[][] Matriz) {
+    public Tablero(JTextArea Grafica, JFrame Contenedor, JLabel[][] Matriz,JLabel L1,JLabel L2) {
         this.TableroActivo=true;
         Texto = Grafica;
         this.Matriz = Matriz;
@@ -85,10 +147,10 @@ public class Tablero extends Thread {
         CargaNiveles Carga = new CargaNiveles(1);
         Tablero[] Arra={this};
         this.Tabla = Carga.Carga("C:\\Users\\Norki\\Desktop\\Bombero\\Niveles\\Nivel1.txt", Arra);
-        //Tabla[6][6] = new Enemigo(1, 6, 6, 1, this);
-        //Tabla[2][2] = new Jugador(1, 2, 2, 1, this);
-
-        //Jugador = Tabla[2][2];
+        this.L1=L1;
+        this.L2=L2;
+        this.Puntos=0;
+        this.Final=15;
     }
 
     public void Iniciar() {
@@ -108,18 +170,21 @@ public class Tablero extends Thread {
 
     @Override
     public void run() {
-        while (this.TableroActivo) {
+        while (this.TableroActivo || this.Final>0) {
             try {
                 Contenedor.requestFocus();
                 //  TableroTexto(Texto);
                 CargarAMatriz();
                 Thread.sleep(200);
+                if(!this.TableroActivo){
+                    this.Final--;
+                }
 
             } catch (InterruptedException ex) {
                 Logger.getLogger(Tablero.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+        System.out.println("Juego Terminado Ganando");
         
     }
 
@@ -132,7 +197,7 @@ public class Tablero extends Thread {
     }
 
     public void DañarEntidad(int X, int Y, int Daño) {
-        if (Tabla[X][Y] == null) {
+        if (Tabla[X][Y] == null || Tabla[X][Y].Tipo()==4) {
             return;
         }
 
@@ -144,8 +209,9 @@ public class Tablero extends Thread {
         if (Tabla[X][Y].VidaActual <= 0) {
 
             if (Tabla[X][Y].Tipo() != 3) {
-                 Tabla[X][Y].Limpiar();
-                 Tabla[X][Y] = null;
+                //ARREGLAR
+                 //Tabla[X][Y].Limpiar();
+                 //Tabla[X][Y] = null;
                 
                 
                 if (X == this.Jugador.X && Y == this.Jugador.Y) {
@@ -165,9 +231,10 @@ public class Tablero extends Thread {
     }
 
     public boolean CasillaVacia(int X, int Y) {
-        if (Tabla[X][Y] == null) {
+        if (Tabla[X][Y] == null || Tabla[X][Y].Tipo()==4) {
             return true;
         } else {
+           
             return false;
         }
     }
@@ -199,7 +266,12 @@ public class Tablero extends Thread {
     public boolean MoverANuevaCasilla(Entidad Enti, int XNueva, int YNueva) {
         int XVieja = Enti.X;
         int YVieja = Enti.Y;
-        if (Tabla[XNueva][YNueva] != null) {
+        if (Tabla[XNueva][YNueva] != null && Tabla[XNueva][YNueva].Tipo()!=4) {
+            
+            
+            
+          
+            
             return false;
         }
         if (Enti.Tipo() == 3 && Tabla[XVieja][YVieja].Tipo() != 3) {
@@ -222,7 +294,7 @@ public class Tablero extends Thread {
         return true;
     }
 
-    public void BorrarEntidad(int X, int Y) {
+    public void BorrarEntidad1(int X, int Y) {
         this.Tabla[X][Y].Limpiar();
         this.Tabla[X][Y] = null;
     }
@@ -247,10 +319,16 @@ public class Tablero extends Thread {
     }
 
     public void PonerHumo(int X, int Y) {
-        Tablero[] Array= {this};
-        Humo Hum = new Humo(1, X, Y, 0, Array);
-        Hum.start();
-        this.Tabla[X][Y] = Hum;
+        Tablero[] Array = {this};
+        if (Tabla[X][Y] != null && Tabla[X][Y].Tipo()>1) {
+            this.Puntos = this.Puntos + this.Punteo(Tabla[X][Y].Tipo());
+            this.Tabla[X][Y] = new Bonus();
+        } else {
+
+            Humo Hum = new Humo(1, X, Y, 0, Array);
+            Hum.start();
+            this.Tabla[X][Y] = Hum;
+        }
     }
 
     private char DibujarTexto(Entidad Actual) {

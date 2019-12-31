@@ -1,12 +1,12 @@
-BBBBBBBBBBBB
-BBBBBBBBBBBB
-B        JBB
-B      B
-B         BB
-B         BB
-B    E     B
-B          B
-B      E   B
-BBBBBBBBBBBB
-BBBBBBBBBBBB
-BBBBBBBBBBBB
+XXXXXXXXXXXX
+XXXXXXXXXXXX
+X        JXX
+X  B    XX
+X         BB
+X         BB
+X    E    LB
+X          B
+X      E   X
+XXXXXXXXXXXX
+XXXXXXXXXXXX
+XXXXXXXXXXXX

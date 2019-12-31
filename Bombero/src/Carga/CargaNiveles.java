@@ -39,12 +39,14 @@ public class CargaNiveles {
             case 'J':
                     Enti=new Jugador(3,X,Y,Ataque,Tabla);
                     Tabla[0].CrearJugador(Enti);
+                    
                     break;
             case 'X': 
                     Enti=new Pared(1,X,Y,Ataque,Tabla);
                     break;
             case 'L':
-                    Enti=new Llave(1,X,Y,Ataque,Tabla);
+                    Enti=new Llave(1,X,Y,0,Tabla);
+                    Tabla[0].CrearLlave(Enti);
                     break;
             case 'B':
                     Enti=new Pared(1,X,Y,Ataque,Tabla);
