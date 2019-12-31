@@ -14,7 +14,7 @@ import java.awt.event.KeyListener;
  */
 public class Jugador extends Entidad {
     int BombasEspeciales;
-    public Jugador(int Vida, int X, int Y, int Ataque, Tablero Tabla) {
+    public Jugador(int Vida, int X, int Y, int Ataque, Tablero []Tabla) {
         super(Vida, X, Y, Ataque, Tabla);
         this.BombasEspeciales=0;
     }
@@ -38,6 +38,16 @@ public class Jugador extends Entidad {
         EjeX=Margen(X,EjeX);  
         EjeY=Margen(Y,EjeY);  
         //Casilla Vacia
+        //Hay Objeto  Enemigo
+         if(Tabla.EsEnemigo(EjeX, Y)){
+            Tabla.DañarJugador();
+            System.out.println("Choque");
+        }else
+         if(Tabla.EsEnemigo(X, EjeY)){
+            Tabla.DañarJugador();
+            System.out.println("Choque");
+        }
+        
         //Mover en X
         if(Tabla.CasillaVacia(EjeX, Y)){
             if(Tabla.MoverANuevaCasilla(this, EjeX, Y))
@@ -48,12 +58,8 @@ public class Jugador extends Entidad {
             if(Tabla.MoverANuevaCasilla(this, X, EjeY))
             Y=EjeY;
         }
-        //Hay Objeto  Enemigo
-        //else if(Tabla.EsEnemigo(EjeX, EjeY)){
-        //    Tabla.DañarEntidad(EjeX, EjeY, Enemigo.Ataque);
-        //}else{
+        
             //No Se Mueve
-        //}
      
         EjeX=0;
         EjeY=0;
@@ -79,6 +85,8 @@ public class Jugador extends Entidad {
             EjeY=1;
         }else if(Evento==32)
         {
+            Tablero[] Arra= {Tabla};
+            
             //Bomba
             int Rango=1;
             boolean Especial=false;
@@ -87,7 +95,7 @@ public class Jugador extends Entidad {
                 Especial=true;
                 BombasEspeciales--;
             }
-            if(!this.Tabla.PonerBomba(new Bomba(1,X,Y,this.Ataque,Tabla,Rango), X, Y)){
+            if(!this.Tabla.PonerBomba(new Bomba(1,X,Y,this.Ataque,Arra,Rango), X, Y)){
                 if(Especial)
                     BombasEspeciales++;
             }
@@ -97,10 +105,14 @@ public class Jugador extends Entidad {
     @Override
     public void Esperar() {
         try {
-            while(this.VidaActual>0){
+            while(this.VidaActual>0 ){
                 Mover();
+                //this.VidaActual=3;
                 Thread.sleep(200);
             }
+             Thread.sleep(700);
+            System.out.println("Menu de Juego Acabado   " + this.VidaActual);
+
         } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
         }

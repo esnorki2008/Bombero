@@ -14,19 +14,20 @@ public abstract class Entidad extends Thread{
     protected int VidaActual,Ataque;  
     protected int X,Y,Rango;
     protected Tablero Tabla;
-    public Entidad(int Vida,int X,int Y,int Ataque,Tablero Tabla){
+    
+    public Entidad(int Vida,int X,int Y,int Ataque,Tablero []Tabla){
         this.X=X;
         this.Y=Y;
         this.Ataque=Ataque;
         this.VidaActual=Vida;
-        this.Tabla=Tabla;
+        this.Tabla=Tabla[0];
     }
-    public Entidad(int Vida,int X,int Y,int Ataque,Tablero Tabla,int Rango){
+    public Entidad(int Vida,int X,int Y,int Ataque,Tablero []Tabla,int Rango){
         this.X=X;
         this.Y=Y;
         this.Ataque=Ataque;
         this.VidaActual=Vida;
-        this.Tabla=Tabla;
+        this.Tabla=Tabla[0];
         this.Rango=Rango;
     }
     @Override
@@ -55,8 +56,11 @@ public abstract class Entidad extends Thread{
     public abstract int Tipo();
     public abstract String Info();
     public abstract void Mover();
+    public void Limpiar(){
+        this.Tabla=null;
+    }
     public void RecibirDaño(int Daño){
-        this.VidaActual--;
+        this.VidaActual=this.VidaActual-1;
     }
     public int Atacar(){
         return Ataque;

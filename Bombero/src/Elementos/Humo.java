@@ -5,30 +5,40 @@
  */
 package Elementos;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Norki
  */
-public class Llave extends Entidad{
+public class Humo extends Entidad{
 
-    public Llave(int Vida, int X, int Y, int Ataque, Tablero[] Tabla) {
+    public Humo(int Vida, int X, int Y, int Ataque, Tablero[] Tabla) {
+        
         super(Vida, X, Y, Ataque, Tabla);
     }
 
     @Override
     public void Esperar() {
-        //No Hace Nada
+        try {
+
+            Thread.sleep(500);
+
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Humo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.VidaActual=0;
     }
 
     @Override
     public int Tipo() {
-        return 4;
+        return 5;
     }
 
     @Override
     public String Info() {
-        //
-        return "Llave: " + super.X + "," + super.Y;
+        return "Humo";
     }
 
     @Override

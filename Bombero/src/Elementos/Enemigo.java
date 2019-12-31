@@ -11,7 +11,7 @@ package Elementos;
  */
 public class Enemigo extends Entidad {
 
-    public Enemigo(int Vida, int X, int Y, int Ataque, Tablero Tabla) {
+    public Enemigo(int Vida, int X, int Y, int Ataque, Tablero[] Tabla) {
          
         super(Vida, X, Y, Ataque, Tabla);
     }
@@ -29,6 +29,19 @@ public class Enemigo extends Entidad {
         EjeX=Margen(X,EjeX);  
         EjeY=Margen(Y,EjeY);  
         //Casilla Vacia
+        //Hay Objeto  Jugador
+        if(Tabla.EsJugador(EjeX, Y)){
+            Tabla.DañarJugador();
+            System.out.println("Ataque Enemigo");
+        }else
+        if(Tabla.EsJugador(X, EjeY)){
+            Tabla.DañarJugador();
+            System.out.println("Ataque Enemigo");
+        }else if(Tabla.EsJugador(EjeX, EjeY)){
+            Tabla.DañarJugador();
+            System.out.println("Ataque Enemigo");
+        }
+        
         //Mover en X
         if(Tabla.CasillaVacia(EjeX, Y)){
             if(Tabla.MoverANuevaCasilla(this, EjeX, Y))
@@ -39,12 +52,8 @@ public class Enemigo extends Entidad {
             if(Tabla.MoverANuevaCasilla(this, X, EjeY))
             Y=EjeY;
         }
-        //Hay Objeto  Jugador
-        else if(Tabla.EsJugador(EjeX, EjeY)){
-            Tabla.DañarEntidad(EjeX, EjeY, Ataque);
-        }else{
+        
             //No Se Mueve
-        }
     }
 
     @Override

@@ -30,7 +30,7 @@ public class CargaNiveles {
     public CargaNiveles(int Dificultad) {
         this.Dificultad = Dificultad;
     }
-    private Entidad GenerarEntidades(char Caracter,int X,int Y,Tablero Tabla){
+    private Entidad GenerarEntidades(char Caracter,int X,int Y,Tablero[] Tabla){
         int Ataque=0;
         
         Entidad Enti=null;
@@ -38,7 +38,7 @@ public class CargaNiveles {
         {
             case 'J':
                     Enti=new Jugador(3,X,Y,Ataque,Tabla);
-                    Tabla.CrearJugador(Enti);
+                    Tabla[0].CrearJugador(Enti);
                     break;
             case 'X': 
                     Enti=new Pared(1,X,Y,Ataque,Tabla);
@@ -62,7 +62,7 @@ public class CargaNiveles {
         
         return Enti;
     }
-    public Entidad[][] Carga(String Path,Tablero Tabla) {
+    public Entidad[][] Carga(String Path,Tablero[] Tabla) {
         Entidad[][] NuevoNivel = new Entidad[12][12];
         File archivo = new File(Path);
         FileReader fr = null;

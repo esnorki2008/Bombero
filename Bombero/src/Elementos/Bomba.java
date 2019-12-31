@@ -16,12 +16,12 @@ public class Bomba extends Entidad {
 
     int Veces;
 
-    public Bomba(int Vida, int X, int Y, int Ataque, Tablero Tabla) {
+    public Bomba(int Vida, int X, int Y, int Ataque, Tablero[] Tabla) {
         super(Vida, X, Y, Ataque, Tabla);
         Veces = 0;
     }
 
-    public Bomba(int Vida, int X, int Y, int Ataque, Tablero Tabla, int Rango) {
+    public Bomba(int Vida, int X, int Y, int Ataque, Tablero[] Tabla, int Rango) {
         super(Vida, X, Y, Ataque, Tabla, Rango);
         Veces = 0;
     }
@@ -44,14 +44,19 @@ public class Bomba extends Entidad {
     private void Explotar() {
         //Daña En Forma de cruz
         // Y Estatica X Variable
+        Tablero Tabla=this.Tabla;
         for (int i = super.X; i <= super.X + Rango; i++) {
             if (i >= 0 && i<=11) {
                 Tabla.DañarEntidad(i, Y, super.Ataque);
+                                Tabla.PonerHumo(i, Y);
+
             }
         }
-        for (int i = super.X+1 - Rango; i <= super.X; i++) {
+        for (int i = super.X - Rango; i <= super.X; i++) {
             if (i >= 0 && i<=11) {
               Tabla.DañarEntidad(i, Y, super.Ataque);
+               Tabla.PonerHumo(i, Y);
+
             }
         }
         // X Estatica Y Variable
@@ -59,11 +64,13 @@ public class Bomba extends Entidad {
         for (int j = super.Y+1; j <= super.Y + Rango; j++) {
             if (j <= 11 && j>=0) {
                 Tabla.DañarEntidad(X, j, super.Ataque);
+                 Tabla.PonerHumo(X, j);
             }
         }
         for (int j = super.Y - Rango; j < super.Y; j++) {
             if (j <= 11 && j>=0) {
                 Tabla.DañarEntidad(X, j, super.Ataque);
+                 Tabla.PonerHumo(X, j);
             }
         }
     }
@@ -74,9 +81,9 @@ public class Bomba extends Entidad {
                 while (this.VidaActual > 0) {
                     Thread.sleep(1000);
                     Veces++;
-                        Explotar();
                         this.VidaActual = 0;
                 }
+                Explotar();
             } catch (InterruptedException ex) {
                 Logger.getLogger(Bomba.class.getName()).log(Level.SEVERE, null, ex);
             }

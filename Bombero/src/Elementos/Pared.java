@@ -11,7 +11,7 @@ package Elementos;
  */
 public class Pared extends Entidad{
     boolean Bonus;
-    public Pared(int Vida, int X, int Y, int Ataque, Tablero Tabla) {
+    public Pared(int Vida, int X, int Y, int Ataque, Tablero[] Tabla) {
         super(Vida, X, Y, Ataque, Tabla);
         Bonus=false;
     }
