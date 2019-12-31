@@ -45,8 +45,9 @@ public class Tablero extends Thread {
                 if (Tabla[i][j] == null) {
                     Matriz[i][j].setText("");
                 } else {
+                 
+                    
                     if (Tabla[i][j].VidaActual <= 0) {
-
                         if (Tabla[i][j].Tipo() != 3) {
                             Tabla[i][j].Limpiar();
                             Tabla[i][j] = null;
@@ -55,10 +56,13 @@ public class Tablero extends Thread {
                                 Tabla[i][j] = this.Jugador;
                             }
 
+                        }else{
+                            Matriz[i][j].setText((Tabla[i][j].Tipo()) + "");
                         }
                     } else {
 
                        // Matriz[i][j].setText(this.DibujarTexto(Tabla[i][j]) + "");
+                      
                         Matriz[i][j].setText((Tabla[i][j].Tipo()) + "");
                     }
                 }
@@ -199,7 +203,6 @@ public class Tablero extends Thread {
             return false;
         }
         if (Enti.Tipo() == 3 && Tabla[XVieja][YVieja].Tipo() != 3) {
-            Tabla[XNueva][YNueva] =null;
             Tabla[XNueva][YNueva] = Enti;
         } else {
             Tabla[XNueva][YNueva] = Tabla[XVieja][YVieja];

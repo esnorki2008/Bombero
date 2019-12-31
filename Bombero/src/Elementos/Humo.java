@@ -28,7 +28,7 @@ public class Humo extends Entidad{
         } catch (InterruptedException ex) {
             Logger.getLogger(Humo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.VidaActual=0;
+        this.VidaActual=-1;
     }
 
     @Override
