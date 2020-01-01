@@ -8,8 +8,14 @@ package GUI;
 import Elementos.Juego;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
 /**
@@ -1776,10 +1782,25 @@ public class Interfaz extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextArea1KeyPressed
 
+    private String AbrirArchivo() {
+        String aux = "";
+        String texto = "";
+           
+            JFileChooser file = new JFileChooser();
+            file.showOpenDialog(this);
+           
+            File abre = file.getSelectedFile();
+            return abre.getAbsolutePath();
+           
+           
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String Abrir = this.AbrirArchivo();
+        System.out.println(Abrir);
         Actual = new Juego();
         JLabel[][] Matriz = Gigante();
-        Actual.IniciarJuego(this.jTextArea1, this, Matriz,this.jLabel145,this.jLabel146,this.jLabel147);
+        Actual.IniciarJuego(this.jTextArea1, this, Matriz,this.jLabel145,this.jLabel146,this.jLabel147,Abrir);
 
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -151,7 +151,7 @@ public class Tablero extends Thread {
     public boolean EstadoTablero(){
         return this.TableroActivo;
     }
-    public Tablero(JTextArea Grafica, JFrame Contenedor, JLabel[][] Matriz,JLabel L1,JLabel L2,JLabel L3) {
+    public Tablero(JTextArea Grafica, JFrame Contenedor, JLabel[][] Matriz,JLabel L1,JLabel L2,JLabel L3,String Path) {
         this.Iniciaricono();
         this.TableroActivo=true;
         Texto = Grafica;
@@ -160,7 +160,7 @@ public class Tablero extends Thread {
         this.Contenedor = Contenedor;
         CargaNiveles Carga = new CargaNiveles(1);
         Tablero[] Arra={this};
-        this.Tabla = Carga.Carga("C:\\Users\\Norki\\Desktop\\Bombero\\Niveles\\Nivel1.txt", Arra);
+        this.Tabla = Carga.Carga(Path, Arra);
         this.L1=L1;
         this.L2=L2;
         this.L3=L3;
