@@ -72,8 +72,10 @@ public class Tablero extends Thread {
             for (int i = 0; i < 12; i++) {
 
                 if (Tabla[i][j] == null) {
-                    Matriz[i][j].setText("");
-                   // this.Matriz[i][j].setIcon(null);
+                    
+                    //Icono Texto Vacio
+                   // Matriz[i][j].setText("");
+                    this.Matriz[i][j].setIcon(null);
                 } else {
                  
                     
@@ -92,41 +94,51 @@ public class Tablero extends Thread {
                             }
 
                         }else{
-                            Matriz[i][j].setText((Tabla[i][j].Tipo()) + "");
+                            //Icono Texto Personaje Muerto
+                          //  Matriz[i][j].setText((Tabla[i][j].Tipo()) + "");
                         }
                     } else {
-
-                        Matriz[i][j].setText(this.DibujarTexto(Tabla[i][j]) + "");
-                       //       ImageIcon imageIcon = ImageIconTipo(Tabla[i][j].Tipo());
-                        //      this.Matriz[i][j].setText("");
-                        //      this.Matriz[i][j].setIcon(imageIcon);
+                        //Icono Texto Entidad
+                        
+                       // Matriz[i][j].setText(this.DibujarTexto(Tabla[i][j]) + "");
+                              ImageIcon imageIcon = ImageIconTipo(Tabla[i][j].Tipo());
+                             // this.Matriz[i][j].setText("");
+                              this.Matriz[i][j].setIcon(imageIcon);
                        // Matriz[i][j].setText((Tabla[i][j].Tipo()) + "");
                     }
                 }
             }
         }
     }
+    private ImageIcon Img0,Img1,Img2,Img3,Img4,Img5,Img6;
+    private void Iniciaricono(){
+                Img0 =new ImageIcon("src\\Imagenes\\0.png");
+                Img1 =new ImageIcon("src\\Imagenes\\1.png");
+                Img2 =new ImageIcon("src\\Imagenes\\2.png");
+                Img3 =new ImageIcon("src\\Imagenes\\3.png");
+                Img4 =new ImageIcon("src\\Imagenes\\4.png");
+                Img5 =new ImageIcon("src\\Imagenes\\5.png");
+                Img6 =new ImageIcon("src\\Imagenes\\6.png");
+      
+    }
+    
     public ImageIcon ImageIconTipo(int Tipo){
         ImageIcon imageIcon =null;
         switch(Tipo){
             case 0:
-                imageIcon =new ImageIcon("src\\Imagenes\\0.png");
-                break;
+                return Img0;
             case 1:
-                imageIcon =new ImageIcon("src\\Imagenes\\1.png");
-                break;
+                return Img1;
             case 2:
-                imageIcon =new ImageIcon("src\\Imagenes\\2.png");
-                break;
+                return Img2;
             case 3:
-                imageIcon =new ImageIcon("src\\Imagenes\\3.png");
-                break;
+                return Img3;
             case 4:
-                imageIcon =new ImageIcon("src\\Imagenes\\4.png");
-                break;
+                return Img4;
             case 5:
-                imageIcon =new ImageIcon("src\\Imagenes\\5.png");
-                break;
+                return Img5;
+            case 6:
+                return Img6;
             default:
                 imageIcon =new ImageIcon("src\\Imagenes\\7.jpg");
             break;
@@ -140,6 +152,7 @@ public class Tablero extends Thread {
         return this.TableroActivo;
     }
     public Tablero(JTextArea Grafica, JFrame Contenedor, JLabel[][] Matriz,JLabel L1,JLabel L2,JLabel L3) {
+        this.Iniciaricono();
         this.TableroActivo=true;
         Texto = Grafica;
         this.Matriz = Matriz;
