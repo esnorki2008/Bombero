@@ -1790,6 +1790,8 @@ public class Interfaz extends javax.swing.JFrame {
             file.showOpenDialog(this);
            
             File abre = file.getSelectedFile();
+            if(abre==null)
+                return "";
             return abre.getAbsolutePath();
            
            
@@ -1797,6 +1799,14 @@ public class Interfaz extends javax.swing.JFrame {
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String Abrir = this.AbrirArchivo();
+        
+        File archivo = new File(Abrir);
+        
+        if (!archivo.exists()) {
+            JOptionPane.showMessageDialog(null,"El Archivo No Existe, O Ruta Erronea");
+            return;
+        }
+        
         System.out.println(Abrir);
         Actual = new Juego();
         JLabel[][] Matriz = Gigante();
