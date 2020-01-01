@@ -44,49 +44,89 @@ public class Bomba extends Entidad {
     private void Explotar() {
         //Daña En Forma de cruz
         // Y Estatica X Variable
-        Tablero Tabla=this.Tabla;
-        for (int i = super.X; i <= super.X + Rango; i++) {
-            if (i >= 0 && i<=11) {
+        Tablero Tabla = this.Tabla;
+
+        int Veces = 0;
+        for (int i = super.X; i <= super.X + Rango(); i++) {
+            if (i >= 0 && i <= 11) {
+                if (Veces == 1) {
+                    break;
+                }
+
+                if (Tabla.PararExplosion(i, Y)) {
+                    Veces = 1;
+                }
                 Tabla.DañarEntidad(i, Y, super.Ataque);
-                                Tabla.PonerHumo(i, Y);
+                Tabla.PonerHumo(i, Y);
 
             }
         }
-        for (int i = super.X - Rango; i <= super.X; i++) {
-            if (i >= 0 && i<=11) {
-              Tabla.DañarEntidad(i, Y, super.Ataque);
-               Tabla.PonerHumo(i, Y);
+        Veces = 0;
+        //Izquierda
+        for (int i = super.X-1 ; i >= super.X- Rango(); i--) {
+            if (i >= 0 && i <= 11) {
+
+                if (Veces == 1) {
+                    break;
+                }
+
+                if (Tabla.PararExplosion(i, Y)) {
+                    Veces = 1;
+                }
+
+                Tabla.DañarEntidad(i, Y, super.Ataque);
+                Tabla.PonerHumo(i, Y);
 
             }
         }
+        Veces = 0;
         // X Estatica Y Variable
 
-        for (int j = super.Y+1; j <= super.Y + Rango; j++) {
-            if (j <= 11 && j>=0) {
+        for (int j = super.Y + 1; j <= super.Y + Rango(); j++) {
+            if (j <= 11 && j >= 0) {
+                if (Veces == 1) {
+                    break;
+                }
+
+                if (Tabla.PararExplosion(X, j)) {
+                    Veces = 1;
+                }
+
                 Tabla.DañarEntidad(X, j, super.Ataque);
-                 Tabla.PonerHumo(X, j);
+                Tabla.PonerHumo(X, j);
+
             }
         }
-        for (int j = super.Y - Rango; j < super.Y; j++) {
-            if (j <= 11 && j>=0) {
+        Veces = 0;
+        for (int j = super.Y - 1; j >= super.Y-Rango(); j--) {
+            if (j <= 11 && j >= 0) {
+                if (Veces == 1) {
+                    break;
+                }
+
+                if (Tabla.PararExplosion(X, j)) {
+                    Veces = 1;
+                }
+
                 Tabla.DañarEntidad(X, j, super.Ataque);
-                 Tabla.PonerHumo(X, j);
+                Tabla.PonerHumo(X, j);
+
             }
         }
     }
 
     @Override
     public void Esperar() {
-            try {
-                while (this.VidaActual > 0) {
-                    Thread.sleep(1000);
-                    Veces++;
-                        this.VidaActual = 0;
-                }
-                Explotar();
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Bomba.class.getName()).log(Level.SEVERE, null, ex);
+        try {
+            while (this.VidaActual > 0) {
+                Thread.sleep(1000);
+                Veces++;
+                this.VidaActual = 0;
             }
+            Explotar();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Bomba.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

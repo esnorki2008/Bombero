@@ -12,9 +12,12 @@ package Elementos;
  */
 public abstract class Entidad extends Thread{
     protected int VidaActual,Ataque;  
-    protected int X,Y,Rango;
+    protected int X,Y;
+    private int Rango;
     protected Tablero Tabla;
-    
+    public int Rango(){
+        return Rango;
+    }
     public Entidad(int Vida,int X,int Y,int Ataque,Tablero []Tabla){
         this.X=X;
         this.Y=Y;

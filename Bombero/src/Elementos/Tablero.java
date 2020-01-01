@@ -27,7 +27,7 @@ public class Tablero extends Thread {
     private Entidad[][] Tabla;
     JTextArea Texto;
     JFrame Contenedor;
-    JLabel L1,L2;
+    JLabel L1,L2,L3;
     private JLabel[][] Matriz;
 
     public Entidad[][] RetornarTabla() {
@@ -57,6 +57,7 @@ public class Tablero extends Thread {
         this.L1.setText(Vid+"");
        
         this.L2.setText(this.Puntos+"");
+        this.L3.setText(((Jugador)this.Jugador).Especiales()+"");
         if(Llave!=null){
             int i=Llave.X;
             int j=Llave.Y;
@@ -138,7 +139,7 @@ public class Tablero extends Thread {
     public boolean EstadoTablero(){
         return this.TableroActivo;
     }
-    public Tablero(JTextArea Grafica, JFrame Contenedor, JLabel[][] Matriz,JLabel L1,JLabel L2) {
+    public Tablero(JTextArea Grafica, JFrame Contenedor, JLabel[][] Matriz,JLabel L1,JLabel L2,JLabel L3) {
         this.TableroActivo=true;
         Texto = Grafica;
         this.Matriz = Matriz;
@@ -149,6 +150,7 @@ public class Tablero extends Thread {
         this.Tabla = Carga.Carga("C:\\Users\\Norki\\Desktop\\Bombero\\Niveles\\Nivel1.txt", Arra);
         this.L1=L1;
         this.L2=L2;
+        this.L3=L3;
         this.Puntos=0;
         this.Final=15;
     }
@@ -234,7 +236,7 @@ public class Tablero extends Thread {
         if (Tabla[X][Y] == null) {
             return true;
         } else {
-            if (Tabla[X][Y].Tipo() == 4) {
+            if (Tabla[X][Y].Tipo() == 4 || Tabla[X][Y].Tipo() == 6) {
                 return true;
             } else;
 
@@ -269,14 +271,40 @@ public class Tablero extends Thread {
     public boolean MoverANuevaCasilla(Entidad Enti, int XNueva, int YNueva) {
         int XVieja = Enti.X;
         int YVieja = Enti.Y;
-        if (Tabla[XNueva][YNueva] != null && Tabla[XNueva][YNueva].Tipo()!=4) {
+        //Se Mueve A Donde Esta La LLave
+        if (Tabla[XNueva][YNueva] != null ) {
+            //Para Enemigos
+            if(Enti.Tipo()==1){
+                switch(Tabla[XNueva][YNueva].Tipo()){
+                    case 0:
+                        return false;
+                    case 1:
+                        return false;
+                    case 2:
+                        return false;
+                    case 3:
+                        return false;
+                    case 4:
+                        return false;
+                    case 5:
+                        return false;
+                    case 6:
+                        return false;
+                }
             
+            }
             
+            //System.out.println("M");
+            if(Tabla[XNueva][YNueva].Tipo()==6&& Enti.Tipo()==3){
+                ((Jugador)Enti).MasBombas(2);
+            }
             
-          
-            
-            return false;
+            if(Tabla[XNueva][YNueva].Tipo()!=4 && Enti.Tipo()!=3)
+                return false;
         }
+        
+        
+        
         if (Enti.Tipo() == 3 && Tabla[XVieja][YVieja].Tipo() != 3) {
             Tabla[XNueva][YNueva] = Enti;
         } else {
@@ -286,7 +314,19 @@ public class Tablero extends Thread {
 
         return true;
     }
-
+    public boolean PararExplosion(int X,int Y){
+        boolean Aceptar=false;
+        if(Tabla[X][Y]==null)
+            return Aceptar;
+        switch(Tabla[X][Y].Tipo()){
+            case 0:
+                Aceptar=true;
+                break;
+        
+        }
+        
+        return Aceptar;
+    }
     public boolean PonerBomba(Bomba Nueva, int XNueva, int YNueva) {
         Entidad Actual = Tabla[XNueva][YNueva];
         if (Actual.Tipo() == 2) {

@@ -13,13 +13,27 @@ import java.awt.event.KeyListener;
  * @author 50241
  */
 public class Jugador extends Entidad {
-    int BombasEspeciales;
+    private int BombasEspeciales;
+    public void MasBombas(int B){
+        this.BombasEspeciales=this.BombasEspeciales+B;
+    }
     public Jugador(int Vida, int X, int Y, int Ataque, Tablero []Tabla) {
         super(Vida, X, Y, Ataque, Tabla);
         this.BombasEspeciales=0;
     }
-    
-    
+    @Override
+    public int Rango(){
+        if(this.BombasEspeciales>0){
+           this.BombasEspeciales--;
+           return 2;
+        }else{
+        
+            if(this.BombasEspeciales<0)
+                this.BombasEspeciales=0;
+            
+            return 1;
+        }
+    }
 
     @Override
     public int Tipo() {
@@ -63,6 +77,9 @@ public class Jugador extends Entidad {
      
         EjeX=0;
         EjeY=0;
+    }
+    public int Especiales(){
+        return this.BombasEspeciales;
     }
     private int EjeX,EjeY=0;
     public void Evento(java.awt.event.KeyEvent evt){
