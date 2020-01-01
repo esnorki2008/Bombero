@@ -231,10 +231,13 @@ public class Tablero extends Thread {
     }
 
     public boolean CasillaVacia(int X, int Y) {
-        if (Tabla[X][Y] == null || Tabla[X][Y].Tipo()==4) {
+        if (Tabla[X][Y] == null) {
             return true;
         } else {
-           
+            if (Tabla[X][Y].Tipo() == 4) {
+                return true;
+            } else;
+
             return false;
         }
     }
@@ -319,16 +322,25 @@ public class Tablero extends Thread {
     }
 
     public void PonerHumo(int X, int Y) {
+
         Tablero[] Array = {this};
-        if (Tabla[X][Y] != null && Tabla[X][Y].Tipo()>1) {
+        if (Tabla[X][Y] != null && Tabla[X][Y].Tipo()<=1) {
             this.Puntos = this.Puntos + this.Punteo(Tabla[X][Y].Tipo());
-            this.Tabla[X][Y] = new Bonus();
-        } else {
+            //PonerBonus
+            if(Tabla[X][Y].Tipo()==0){
+                if(((Pared)Tabla[X][Y]).Bonus){
+                    Bonus Bon=new Bonus(1, X, Y, 0, Array);
+                    Bon.start();
+                    this.Tabla[X][Y] = Bon;
+                    return;
+                }
+            }
+            
+        } 
 
             Humo Hum = new Humo(1, X, Y, 0, Array);
             Hum.start();
             this.Tabla[X][Y] = Hum;
-        }
     }
 
     private char DibujarTexto(Entidad Actual) {
@@ -350,8 +362,12 @@ public class Tablero extends Thread {
                 Simbolo = 'L';
                 break;
             case 5:
-                
+
                 Simbolo = 'H';
+                break;
+            case 6:
+
+                Simbolo = 'Z';
                 break;
             default:
                 Simbolo = ' ';
