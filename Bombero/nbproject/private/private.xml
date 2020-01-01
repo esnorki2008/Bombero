@@ -3,10 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Norki/Desktop/Bombero/Bombero/src/GUI/Interfaz.java</file>
+            <file>file:/C:/Users/Norki/Desktop/Bombero/Bombero/src/Elementos/Pared.java</file>
             <file>file:/C:/Users/Norki/Desktop/Bombero/Bombero/src/Elementos/Tablero.java</file>
-            <file>file:/C:/Users/Norki/Desktop/Bombero/Bombero/src/Elementos/Bomba.java</file>
-            <file>file:/C:/Users/Norki/Desktop/Bombero/Bombero/src/Elementos/Juego.java</file>
+            <file>file:/C:/Users/Norki/Desktop/Bombero/Bombero/src/Carga/CargaNiveles.java</file>
         </group>
     </open-files>
 </project-private>
