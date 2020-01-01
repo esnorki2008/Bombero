@@ -25,7 +25,7 @@ public class Tablero extends Thread {
     private int Puntos;
     private Entidad Jugador,Llave;
     private Entidad[][] Tabla;
-    JTextArea Texto;
+    JLabel Texto;
     JFrame Contenedor;
     JLabel L1,L2,L3;
     private JLabel[][] Matriz;
@@ -151,7 +151,7 @@ public class Tablero extends Thread {
     public boolean EstadoTablero(){
         return this.TableroActivo;
     }
-    public Tablero(JTextArea Grafica, JFrame Contenedor, JLabel[][] Matriz,JLabel L1,JLabel L2,JLabel L3,String Path) {
+    public Tablero(JLabel Grafica, JFrame Contenedor, JLabel[][] Matriz,JLabel L1,JLabel L2,JLabel L3,String Path) {
         this.Iniciaricono();
         this.TableroActivo=true;
         Texto = Grafica;

@@ -15,7 +15,7 @@ import javax.swing.JTextArea;
  */
 public class Juego {
     private Tablero T;
-    public void IniciarJuego(JTextArea Visualizar,JFrame Contenedor,JLabel[][] Matriz,JLabel L1,JLabel L2,JLabel L3,String Path){
+    public void IniciarJuego(JLabel Visualizar,JFrame Contenedor,JLabel[][] Matriz,JLabel L1,JLabel L2,JLabel L3,String Path){
         T = new Tablero(Visualizar,Contenedor,Matriz,L1,L2,L3,Path);
         T.Iniciar();
         T.start();
