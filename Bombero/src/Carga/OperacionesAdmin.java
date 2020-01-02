@@ -28,7 +28,7 @@ public class OperacionesAdmin {
         DefaultTableModel model = new DefaultTableModel();
         Tabla.setModel(model);
         model.addColumn("Usuario");
-        model.addColumn("Punteo Obtenido");
+        
         model.addColumn("Tiempo");
         model.addColumn("Nivel Completado");
         if (!Archivo.Existe("Histo")) {
@@ -43,7 +43,7 @@ public class OperacionesAdmin {
         for (int i = 0; i < Punteo.length; i++) {
             if (!Punteo[i].equals("")) {
                 String[] Valores = Punteo[i].split(",");
-                    LS.Add(Integer.parseInt(Valores[2]),Valores);
+                    LS.Add((int)Double.parseDouble(Valores[2]),Valores);
             }
         }
 
@@ -51,7 +51,7 @@ public class OperacionesAdmin {
         Node Cabeza = LS.Head;
         while (Cabeza != null) {
             String[] Valor=(String[])Cabeza.getContenido();
-            model.addRow(new Object[]{Valor[0],Valor[1],Valor[2],Valor[3]});
+            model.addRow(new Object[]{Valor[0],Valor[2],Valor[3]});
             if (Veces >= 10) {
                 break;
             }
@@ -66,7 +66,6 @@ public class OperacionesAdmin {
         Tabla.setModel(model);
         model.addColumn("Usuario");
         model.addColumn("Punteo Obtenido");
-        model.addColumn("Tiempo");
         model.addColumn("Nivel Completado");
         if (!Archivo.Existe("Histo")) {
             Archivo.Escribir("Histo", "");
@@ -88,7 +87,7 @@ public class OperacionesAdmin {
         Node Cabeza = LS.Head;
         while (Cabeza != null) {
             String[] Valor=(String[])Cabeza.getContenido();
-            model.addRow(new Object[]{Valor[0],Valor[1],Valor[2],Valor[3]});
+            model.addRow(new Object[]{Valor[0],Valor[1],Valor[3]});
             if (Veces >= 10) {
                 break;
             }

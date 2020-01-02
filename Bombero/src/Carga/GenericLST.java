@@ -27,7 +27,7 @@ public abstract   class GenericLST {
     }
     protected abstract void Add(int Clave,Object Inf);
     public boolean Comp(Node N1,Node N2){
-        if(N1.getIdentificador() <N2.getIdentificador())
+        if(N1.getIdentificador() >N2.getIdentificador())
             // Izzquierda
              //return true;
             return false;
