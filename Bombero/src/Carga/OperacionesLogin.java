@@ -46,7 +46,7 @@ public class OperacionesLogin {
         String[] Usuario = Lectura.split("}");
         for (int i = 0; i < Usuario.length; i++) {
             String[] Contenido = Usuario[i].split(",");
-            if (Nombre.toLowerCase().equals(Contenido[0].toLowerCase())) {
+            if (Nombre.toLowerCase().trim().equals(Contenido[0].toLowerCase().trim())) {
                 return false;
             }
         }
@@ -64,7 +64,7 @@ public class OperacionesLogin {
         for (int i = 0; i < Usuario.length; i++) {
             if (!Usuario[i].equals("")) {
                 String[] Contenido = Usuario[i].split(",");
-                if (Nombre.toLowerCase().equals(Contenido[0].toLowerCase())) {
+                if (Nombre.toLowerCase().trim().equals(Contenido[0].toLowerCase().trim())) {
                     return true;
                 }
             }
