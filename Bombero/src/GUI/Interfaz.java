@@ -6,6 +6,8 @@
 package GUI;
 
 import Carga.Historial;
+import Carga.OperacionesUsuario;
+import Carga.Usuario;
 import Elementos.Juego;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -32,12 +34,12 @@ public class Interfaz extends javax.swing.JFrame {
     /**
      * Creates new form Interfaz
      */
-    Historial Histo; 
+    Usuario Usu; 
     public Interfaz(){
         initComponents();
     }
-    public Interfaz(Historial Histo) {
-        this.Histo=Histo;
+    public Interfaz(Usuario Usu) {
+        this.Usu=Usu;
         this.requestFocus();
         initComponents();
         this.LimpiarLabel();
@@ -1925,9 +1927,11 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if(Actual!=null){
-        Histo=new Historial(Actual.Punteo(),Actual.Tiempo(),Actual.Terminado());
-        Actual.TerminarJuego();
+        if (Actual != null) {
+            Historial Histo = new Historial(Actual.Punteo(), Actual.Tiempo(), !Actual.Terminado());
+            Actual.TerminarJuego();
+            OperacionesUsuario Ope = new OperacionesUsuario();
+            Ope.EscribirNuevoTiempo(Usu,Histo);
         }
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed

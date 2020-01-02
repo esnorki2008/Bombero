@@ -25,8 +25,14 @@ public class Historial {
     /**
      * @return the Completada
      */
-    public boolean isCompletada() {
+    public boolean GetCompletada(){
         return Completada;
+    }
+    public String isCompletada() {
+        if(Completada)
+            return "Completado";
+        else
+            return "Sin Completar";
     }
 
     /**

@@ -19,9 +19,21 @@ public class OperacionesUsuario {
     public OperacionesUsuario() {
         this.Archivo = new OperacionesArchivo();
     }
-    public JTable Tiempos(Usuario Usu){
+    public void EscribirNuevoTiempo(Usuario Usu,Historial Histo){
+        if (!Archivo.Existe("Histo")) {
+            Archivo.Escribir("Histo", "");
+        }
+        String Lectura = Archivo.Leer("Histo");
+        String Num="0";
+        if(Histo.GetCompletada())
+            Num="1";
+        Lectura=Lectura+Usu.getNombre()+","+Histo.getPunteo()+","+Histo.getTiempo()+","+Num+"}";
+        
+        Archivo.Escribir("Histo", Lectura);
+    }
+    public JTable Tiempos(Usuario Usu,JTable Tabla){
         DefaultTableModel model = new DefaultTableModel();
-        JTable Tabla = new JTable(model);
+        Tabla.setModel(model);
         model.addColumn("Usuario");
         model.addColumn("Punteo Obtenido");
         model.addColumn("Tiempo");
@@ -39,15 +51,15 @@ public class OperacionesUsuario {
             if (!Punteo[i].equals("")) {
                 String[] Valores = Punteo[i].split(",");
                 boolean Bool = false;
-                    if (Valores[3].toLowerCase().equals("t")) {
+                    if (Valores[3].toLowerCase().equals("1")) {
                         Bool = true;
                     }
                 
                 if (Valores[0].toLowerCase().trim().equals(Usu.getNombre().toLowerCase()) && Bool) {
                     
                     
-                    Usu.getPartidas().Add(Integer.parseInt(Valores[2]),
-                            new Historial(Integer.parseInt(Valores[1]), Integer.parseInt(Valores[2]), Bool));
+                    Usu.getPartidas().Add((int)Double.parseDouble(Valores[2]),
+                            new Historial(Integer.parseInt(Valores[1]), Double.parseDouble(Valores[2]), Bool));
                     
                     
                 }
@@ -68,9 +80,9 @@ public class OperacionesUsuario {
 
         return Tabla;
     }
-    public JTable Punteos(Usuario Usu) {
+    public JTable Punteos(Usuario Usu,JTable Tabla) {
         DefaultTableModel model = new DefaultTableModel();
-        JTable Tabla = new JTable(model);
+        Tabla.setModel(model);
         model.addColumn("Usuario");
         model.addColumn("Punteo Obtenido");
         model.addColumn("Tiempo");
@@ -89,11 +101,11 @@ public class OperacionesUsuario {
                 String[] Valores = Punteo[i].split(",");
                 if (Valores[0].toLowerCase().trim().equals(Usu.getNombre().toLowerCase())) {
                     boolean Bool = false;
-                    if (Valores[3].toLowerCase().equals("t")) {
+                    if (Valores[3].toLowerCase().equals("1")) {
                         Bool = true;
                     }
                     Usu.getPartidas().Add(Integer.parseInt(Valores[1]),
-                            new Historial(Integer.parseInt(Valores[1]), Integer.parseInt(Valores[2]), Bool));
+                            new Historial(Integer.parseInt(Valores[1]),Double.parseDouble(Valores[2]), Bool));
                 }
             }
         }
@@ -112,9 +124,9 @@ public class OperacionesUsuario {
 
         return Tabla;
     }
-    public JTable TodasPartidas(Usuario Usu){
+    public JTable TodasPartidas(Usuario Usu,JTable Tabla){
         DefaultTableModel model = new DefaultTableModel();
-        JTable Tabla = new JTable(model);
+        Tabla.setModel(model);
         model.addColumn("Usuario");
         model.addColumn("Punteo Obtenido");
         model.addColumn("Tiempo");
@@ -133,10 +145,10 @@ public class OperacionesUsuario {
                 String[] Valores = Punteo[i].split(",");
                 if (Valores[0].toLowerCase().trim().equals(Usu.getNombre().toLowerCase())) {
                     boolean Bool = false;
-                    if (Valores[3].toLowerCase().equals("t")) {
+                    if (Valores[3].toLowerCase().equals("1")) {
                         Bool = true;
                     }
-                    Historial Histo= new Historial(Integer.parseInt(Valores[1]), Integer.parseInt(Valores[2]), Bool);
+                    Historial Histo= new Historial(Integer.parseInt(Valores[1]), Double.parseDouble(Valores[2]), Bool);
                     
                     model.addRow(new Object[]{Usu.getNombre(), Histo.getPunteo(), Histo.getTiempo(), Histo.isCompletada()});
                 }
