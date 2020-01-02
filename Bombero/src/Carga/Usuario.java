@@ -29,22 +29,22 @@ public class Usuario {
     /**
      * @return the Partidas
      */
-    public LinkedList<Historial> getPartidas() {
+    public ListaSimple getPartidas() {
         return Partidas;
     }
 
     /**
      * @param Partidas the Partidas to set
      */
-    public void setPartidas(LinkedList<Historial> Partidas) {
+    public void setPartidas(ListaSimple Partidas) {
         this.Partidas = Partidas;
     }
     private String Nombre;
-    private LinkedList<Historial> Partidas; 
+    private ListaSimple Partidas; 
     
     
     public Usuario(String Nombre){
-        Partidas= new LinkedList<Historial>();
+        Partidas= new ListaSimple();
         this.Nombre=Nombre;
     }
     

@@ -11,9 +11,9 @@ package Carga;
  */
 public class Historial {
     private boolean Completada;
-    private int Tiempo;
+    private double Tiempo;
     private int Punteo;
-    public Historial(boolean Completada,int Tiempo,int Punteo){
+    public Historial(int Punteo,int Tiempo,boolean Completada){
         this.Completada=Completada;
         this.Tiempo=Tiempo;
         this.Punteo=Punteo;
@@ -35,14 +35,14 @@ public class Historial {
     /**
      * @return the Tiempo
      */
-    public int getTiempo() {
+    public double getTiempo() {
         return Tiempo;
     }
 
     /**
      * @param Tiempo the Tiempo to set
      */
-    public void setTiempo(int Tiempo) {
+    public void setTiempo(double Tiempo) {
         this.Tiempo = Tiempo;
     }
 

@@ -62,9 +62,11 @@ public class OperacionesLogin {
         String Lectura = Archivo.Leer("Usuarios");
         String[] Usuario = Lectura.split("}");
         for (int i = 0; i < Usuario.length; i++) {
-            String[] Contenido = Usuario[i].split(",");
-            if (Nombre.toLowerCase().equals(Contenido[0].toLowerCase())) {
-                return true;
+            if (!Usuario[i].equals("")) {
+                String[] Contenido = Usuario[i].split(",");
+                if (Nombre.toLowerCase().equals(Contenido[0].toLowerCase())) {
+                    return true;
+                }
             }
         }
         
