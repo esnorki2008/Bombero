@@ -6,6 +6,7 @@
 package GUI;
 
 import Carga.OperacionesLogin;
+import Carga.Usuario;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -54,9 +55,9 @@ public class Login extends javax.swing.JFrame {
 
         jLabel3.setText("Contraseña");
 
-        jTextField1.setText("ADMIN");
+        jTextField1.setText("U");
 
-        jTextField2.setText("ORGA_DIC_2019");
+        jTextField2.setText("1");
 
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel4.setText("Registrarse");
@@ -141,6 +142,11 @@ public class Login extends javax.swing.JFrame {
                 this.dispose();
             }else{
                 JOptionPane.showMessageDialog(null,"Ingresando como Usuario: "+this.jTextField1.getText());
+                Usuario Usu= new Usuario(this.jTextField1.getText());
+                GuiUsuario U= new GuiUsuario(Usu);
+                U.setVisible(true);
+                this.dispose();
+                
             }
         }else{
             JOptionPane.showMessageDialog(null,"Las Credenciales Son Erroneas");

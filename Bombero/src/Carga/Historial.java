@@ -13,10 +13,14 @@ public class Historial {
     private boolean Completada;
     private double Tiempo;
     private int Punteo;
-    public Historial(int Punteo,int Tiempo,boolean Completada){
+    public Historial(int Punteo,double Tiempo,boolean Completada){
         this.Completada=Completada;
         this.Tiempo=Tiempo;
         this.Punteo=Punteo;
+    }
+    @Override
+    public String toString(){
+        return Punteo+"_"+Tiempo+"_"+Completada;
     }
     /**
      * @return the Completada

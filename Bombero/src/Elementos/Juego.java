@@ -21,6 +21,18 @@ public class Juego {
         T.start();
         
     }
+    public int Punteo(){
+        return T.Punteo();
+    }
+    public double Tiempo(){
+        return T.Tiempo();
+    }
+    public boolean Terminado(){
+        return T.EstadoTablero();
+    }
+    public void TerminarJuego(){
+        T.Terminar();
+    }
     public Entidad[][] VerTablero(){
         return T.RetornarTabla();
     }

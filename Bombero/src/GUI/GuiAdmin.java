@@ -7,6 +7,7 @@ package GUI;
 
 import Carga.OperacionesAdmin;
 import Carga.OperacionesUsuario;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,7 +19,9 @@ public class GuiAdmin extends javax.swing.JFrame {
      * Creates new form GuiAdmin
      */
     public GuiAdmin() {
+       
         initComponents();
+         this.jTable1.setModel(new DefaultTableModel());
     }
 
     /**

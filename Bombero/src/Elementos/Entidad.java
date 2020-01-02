@@ -25,6 +25,10 @@ public abstract class Entidad extends Thread{
         this.VidaActual=Vida;
         this.Tabla=Tabla[0];
     }
+    public void Terminar(){
+        this.VidaActual=0;
+        this.Limpiar();
+    }
     public Entidad(int Vida,int X,int Y,int Ataque,Tablero []Tabla,int Rango){
         this.X=X;
         this.Y=Y;

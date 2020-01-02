@@ -127,8 +127,8 @@ public class Jugador extends Entidad {
                 //this.VidaActual=3;
                 Thread.sleep(200);
             }
-             Thread.sleep(700);
-            System.out.println("Menu de Juego Acabado   " + this.VidaActual);
+            // Thread.sleep(700);
+            //System.out.println("Menu de Juego Acabado   " + this.VidaActual);
 
         } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
