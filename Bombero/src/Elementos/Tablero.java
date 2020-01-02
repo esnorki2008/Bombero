@@ -29,14 +29,33 @@ public class Tablero extends Thread {
     private Entidad[][] Tabla;
     JLabel Texto;
     JFrame Contenedor;
-    JLabel L1, L2, L3;
+    JLabel L1, L2, L3,L4,L5;
     private ImageIcon Img0, Img1, Img2, Img3, Img4, Img5, Img6;
     private JLabel[][] Matriz;
 
     public Entidad[][] RetornarTabla() {
         return this.Tabla;
     }
-    
+     public Tablero(JLabel Grafica, JFrame Contenedor, JLabel[][] Matriz, JLabel L1, JLabel L2, JLabel L3,JLabel L4,JLabel L5, String Path) {
+        this.Tiempo = 0;
+        this.Parar=false;
+        this.Iniciaricono();
+        this.TableroActivo = true;
+        Texto = Grafica;
+        this.Matriz = Matriz;
+        Tabla = new Entidad[12][12];
+        this.Contenedor = Contenedor;
+        CargaNiveles Carga = new CargaNiveles(1);
+        Tablero[] Arra = {this};
+        this.Tabla = Carga.Carga(Path, Arra);
+        this.L1 = L1;
+        this.L2 = L2;
+        this.L3 = L3;
+        this.L4 = L4;
+        this.L5 = L5;
+        this.Puntos = 0;
+        this.Final = 15;
+    }
     public void Terminar(){
         Parar=true;
       for(int j=0;j<12;j++){
@@ -60,8 +79,8 @@ public class Tablero extends Thread {
         }
     }
 
-    public double Tiempo() {
-        return Tiempo;
+    public int Tiempo() {
+        return (int)Tiempo;
     }
 
     public void CrearJugador(Entidad Jugador) {
@@ -91,7 +110,18 @@ public class Tablero extends Thread {
         this.L1.setText(Vid + "");
 
         this.L2.setText(this.Puntos + "");
+        
+        
         this.L3.setText(((Jugador) this.Jugador).Especiales() + "");
+        
+        
+        this.L4.setText(this.Tiempo() + "");
+        String Esta="En Curso";
+        if(this.EstadoTablero()==false)
+            Esta="Finalizado";
+        this.L5.setText(Esta);
+        
+        
         if (Llave != null) {
             int i = Llave.X;
             int j = Llave.Y;
@@ -187,24 +217,7 @@ public class Tablero extends Thread {
         return this.TableroActivo;
     }
 
-    public Tablero(JLabel Grafica, JFrame Contenedor, JLabel[][] Matriz, JLabel L1, JLabel L2, JLabel L3, String Path) {
-        this.Tiempo = 0;
-        this.Parar=false;
-        this.Iniciaricono();
-        this.TableroActivo = true;
-        Texto = Grafica;
-        this.Matriz = Matriz;
-        Tabla = new Entidad[12][12];
-        this.Contenedor = Contenedor;
-        CargaNiveles Carga = new CargaNiveles(1);
-        Tablero[] Arra = {this};
-        this.Tabla = Carga.Carga(Path, Arra);
-        this.L1 = L1;
-        this.L2 = L2;
-        this.L3 = L3;
-        this.Puntos = 0;
-        this.Final = 15;
-    }
+   
 
     public void Iniciar() {
         for (int j = 0; j < 12; j++) {
@@ -229,7 +242,7 @@ public class Tablero extends Thread {
                 Contenedor.requestFocus();
                 //  TableroTexto(Texto);
                 CargarAMatriz();
-                this.Tiempo=this.Tiempo+Sleep/1000;
+                this.Tiempo=this.Tiempo+0.2;
                 Thread.sleep(Sleep);
                 if (!this.TableroActivo) {
                     this.Final--;
